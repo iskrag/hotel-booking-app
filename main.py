@@ -38,6 +38,16 @@ class ReservationConfirmation:
         return content
 
 
+class SpaTicket(ReservationConfirmation):
+    def generate(self):
+        content = f"""
+        Thank you for your SPA reservation! 
+        Here is your SPA booking information: 
+        Name: {self.customer_name} 
+        Hotel name: {self.hotel.name}"""
+        return content
+
+
 class CreditCard:
     def __init__(self, number):
         self.number = number
@@ -69,6 +79,10 @@ if hotel.available():
             name = input('Enter your name: ')
             reservation_ticket = ReservationConfirmation(name, hotel)
             print(reservation_ticket.generate())
+            to_spa = input('\n Do you want to book a spa package? ')
+            if to_spa == 'yes':
+                spa_ticket = SpaTicket(name, hotel)
+                print(spa_ticket.generate())
         else:
             print('Credit card authentication failed.')
     else:
